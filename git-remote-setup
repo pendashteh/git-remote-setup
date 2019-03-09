@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+echo '[INFO] Setting up `git remote add [remote_name] [remote_url]`'
+read -p "remote_name? " remote_name
+read -p "remote_url? " remote_url
+
+function _run() { cmd=${*}; echo '[CMD] '$cmd; $cmd; }
+
+_run git remote add $remote_name $remote_url
+
+_run git fetch $remote_name
+
+_run git pull --rebase $remote_name master
+
+_run git branch --set-upstream-to=$remote_name/master
+
